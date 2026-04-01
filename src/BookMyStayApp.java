@@ -1,28 +1,15 @@
-import java.util.*;
+import java.util.regex.*;
 
-class Bogie {
-    String name;
-    int capacity;
-
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
-    }
-}
-
-public class UC10 {
+public class UC11 {
     public static void main(String[] args) {
-        List<Bogie> list = new ArrayList<>();
+        String trainId = "TRN-1234";
+        String cargo = "PET-AB";
 
-        list.add(new Bogie("Sleeper", 72));
-        list.add(new Bogie("AC Chair", 56));
-        list.add(new Bogie("First Class", 24));
+        boolean t = Pattern.matches("TRN-\\d{4}", trainId);
+        boolean c = Pattern.matches("PET-[A-Z]{2}", cargo);
 
-        int total = list.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
-
-        System.out.println("Total: " + total);
+        System.out.println("Train: " + t);
+        System.out.println("Cargo: " + c);
     }
 
 }
