@@ -44,5 +44,7 @@ public class UseCase3InventorySetup {
 
         System.out.println("\nUpdated Inventory:");
         inventory.displayInventory();
+
     }
+
 }
