@@ -1,43 +1,37 @@
-import java.util.*;
-import java.util.stream.Collectors;
-
-class Bogie {
-    String name;
-    int capacity;
-
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
+class InvalidCapacityException extends Exception {
+    InvalidCapacityException(String message) {
+        super(message);
     }
 }
 
-public class UC13 {
+class PassengerBogie {
+    String name;
+    int capacity;
+
+    PassengerBogie(String name, int capacity) throws InvalidCapacityException {
+        if (capacity <= 0) {
+            throw new InvalidCapacityException("Capacity must be greater than zero");
+        }
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String toString() {
+        return name + " -> " + capacity;
+    }
+}
+
+public class UC14 {
     public static void main(String[] args) {
+        try {
+            PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
+            PassengerBogie b2 = new PassengerBogie("AC Chair", 0);
 
-        List<Bogie> list = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
-            list.add(new Bogie("Sleeper", (i % 100) + 1));
+            System.out.println(b1);
+            System.out.println(b2);
+        } catch (InvalidCapacityException e) {
+            System.out.println(e.getMessage());
         }
-
-        long s1 = System.nanoTime();
-
-        List<Bogie> l1 = new ArrayList<>();
-        for (Bogie b : list) {
-            if (b.capacity > 60) l1.add(b);
-        }
-
-        long e1 = System.nanoTime();
-
-        long s2 = System.nanoTime();
-
-        List<Bogie> l2 = list.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
-
-        long e2 = System.nanoTime();
-
-        System.out.println("Loop: " + (e1 - s1));
-        System.out.println("Stream: " + (e2 - s2));
     }
 
 }
