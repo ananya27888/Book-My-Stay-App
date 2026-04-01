@@ -1,26 +1,43 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
-class GoodsBogie {
-    String type;
-    String cargo;
+class Bogie {
+    String name;
+    int capacity;
 
-    GoodsBogie(String type, String cargo) {
-        this.type = type;
-        this.cargo = cargo;
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
     }
 }
 
-public class UC12 {
+public class UC13 {
     public static void main(String[] args) {
-        List<GoodsBogie> list = new ArrayList<>();
 
-        list.add(new GoodsBogie("Cylindrical", "Petroleum"));
-        list.add(new GoodsBogie("Open", "Coal"));
+        List<Bogie> list = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            list.add(new Bogie("Sleeper", (i % 100) + 1));
+        }
 
-        boolean safe = list.stream()
-                .allMatch(b -> !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum"));
+        long s1 = System.nanoTime();
 
-        System.out.println(safe);
+        List<Bogie> l1 = new ArrayList<>();
+        for (Bogie b : list) {
+            if (b.capacity > 60) l1.add(b);
+        }
+
+        long e1 = System.nanoTime();
+
+        long s2 = System.nanoTime();
+
+        List<Bogie> l2 = list.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        long e2 = System.nanoTime();
+
+        System.out.println("Loop: " + (e1 - s1));
+        System.out.println("Stream: " + (e2 - s2));
     }
 
 }
