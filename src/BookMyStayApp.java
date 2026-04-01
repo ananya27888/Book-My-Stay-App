@@ -1,15 +1,26 @@
-import java.util.regex.*;
+import java.util.*;
 
-public class UC11 {
+class GoodsBogie {
+    String type;
+    String cargo;
+
+    GoodsBogie(String type, String cargo) {
+        this.type = type;
+        this.cargo = cargo;
+    }
+}
+
+public class UC12 {
     public static void main(String[] args) {
-        String trainId = "TRN-1234";
-        String cargo = "PET-AB";
+        List<GoodsBogie> list = new ArrayList<>();
 
-        boolean t = Pattern.matches("TRN-\\d{4}", trainId);
-        boolean c = Pattern.matches("PET-[A-Z]{2}", cargo);
+        list.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        list.add(new GoodsBogie("Open", "Coal"));
 
-        System.out.println("Train: " + t);
-        System.out.println("Cargo: " + c);
+        boolean safe = list.stream()
+                .allMatch(b -> !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum"));
+
+        System.out.println(safe);
     }
 
 }
