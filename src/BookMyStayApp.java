@@ -11,27 +11,24 @@ class Bogie {
     }
 
     public String toString() {
-        return name + " -> " + capacity;
+        return name + "(" + capacity + ")";
     }
 }
 
-public class TrainConsistUC8 {
+public class UC9 {
     public static void main(String[] args) {
+        List<Bogie> list = new ArrayList<>();
 
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("First Class", 24));
+        list.add(new Bogie("Sleeper", 72));
+        list.add(new Bogie("AC Chair", 56));
+        list.add(new Bogie("Sleeper", 72));
+        list.add(new Bogie("First Class", 24));
 
-        System.out.println("Original Bogies:");
-        bogies.forEach(System.out::println);
+        Map<String, List<Bogie>> map =
+                list.stream().collect(Collectors.groupingBy(b -> b.name));
 
-        List<Bogie> filteredBogies = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
 
-        System.out.println("\nFiltered Bogies (Capacity > 60):");
-        filteredBogies.forEach(System.out::println);
+        map.forEach((k, v) -> System.out.println(k + " -> " + v));
     }
 
 }
