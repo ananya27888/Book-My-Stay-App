@@ -1,25 +1,14 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 
-public class TrainConsistUC4 {
+public class TrainConsistUC5 {
     public static void main(String[] args) {
-
-        LinkedList<String> train = new LinkedList<>();
+        LinkedHashSet<String> train = new LinkedHashSet<>();
         train.add("Engine");
         train.add("Sleeper");
-        train.add("AC");
         train.add("Cargo");
         train.add("Guard");
-
-        System.out.println("Initial Train Consist:");
-        System.out.println(train);
-        train.add(2, "Pantry");
-
-        System.out.println("\nAfter adding Pantry at position 2:");
-        System.out.println(train);
-        train.removeFirst();
-        train.removeLast();
-        System.out.println("\nFinal Train Consist:");
+        train.add("Sleeper");
+        System.out.println("Final Train Formation:");
         System.out.println(train);
     }
-
 }
